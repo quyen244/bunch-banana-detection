@@ -1,0 +1,16 @@
+.git
+.gitattributes
+frontend/
+frontend/node_modules/
+images/
+logs/
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+.env
+.env.local
+app.py
+README.md
+run_server.sh
+stop_server.sh

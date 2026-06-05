@@ -1,8 +1,7 @@
 ultralytics
 opencv-python-headless
-torch 
-torchvision 
-torchaudio 
-numpy 
-gradio 
-dotenv 
+numpy
+fastapi
+uvicorn[standard]
+python-multipart
+Pillow

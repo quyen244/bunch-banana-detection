@@ -1,0 +1,6 @@
+[2026-06-05 21:20:02] --- STOPPING BANANA DETECTION SERVER ---
+[2026-06-05 21:20:05] Container stopped.
+ERROR: Invalid argument/option - '//F'.
+Type "TASKKILL /?" for usage.
+[2026-06-05 21:20:06] Tunnel stopped.
+[2026-06-05 21:20:06] --- ALL SERVICES STOPPED ---
