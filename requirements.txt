@@ -1,0 +1,8 @@
+ultralytics
+opencv-python-headless
+torch 
+torchvision 
+torchaudio 
+numpy 
+gradio 
+dotenv 

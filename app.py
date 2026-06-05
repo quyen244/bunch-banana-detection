@@ -6,7 +6,6 @@ from ultralytics.nn import tasks
 from ultralytics.nn.modules import  DWConv  , Conv
 import math
 import torch.nn.functional as F
-import cv2 
 import os
 
 class h_sigmoid(nn.Module):
@@ -108,16 +107,12 @@ class DCPBlock(nn.Module):
         super().__init__()
         c_ = int(c2 * e) 
         
-        # Nhánh 1: Kernel lớn 7x7 (Padding = 3 để giữ size) -> Nhìn xa
         self.dw7 = DWConv(c1, c1, k=7, s=1)     
         
-        # Nhánh 2: Kernel nhỏ 3x3 (Padding = 1 để giữ size) -> Nhìn gần
         self.dw3 = DWConv(c1, c1, k=3, s=1)   
         
-        # Attention: Tổng hợp thông tin từ cả 2 nhánh
         self.coratt = CoordAtt(c1, c1)  
         
-        # Pointwise Conv để trộn kênh
         self.pw = nn.Conv2d(c1, c2, 1)  
         
         self.add = shortcut and c1 == c2
@@ -193,7 +188,6 @@ demo = gr.Interface(
     inputs=gr.Image( label="Tải ảnh buồng chuối"),
     outputs=gr.Image( label="Kết quả nhận diện"),
     title="Banana Bunch Detection",
-    # Thêm examples trực tiếp vào đây
     examples=[f"images/{f}" for f in os.listdir("images/") if f.endswith(('.jpg', '.png'))] if os.path.exists("images/") else None
 )
 # 3. Chạy App
@@ -201,4 +195,5 @@ if __name__ == "__main__":
     demo.launch()
 
 
-# cd bunch-banana-detection
+# cd bunch-banana-detectioncls
+# 
