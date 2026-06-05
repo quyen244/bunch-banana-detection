@@ -6,6 +6,31 @@ import { Upload, Loader2, RotateCcw, Banana, AlertCircle, CheckCircle2 } from 'l
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL ?? 'http://localhost:8000';
 const PREDICT_URL = `${BACKEND_URL}/predict`;
 
+// Resize image on client before upload — YOLO only uses 640×480 internally,
+// so sending a 12MP original wastes bandwidth with zero accuracy gain.
+function resizeImageFile(file: File, maxDim = 1280): Promise<File> {
+  return new Promise((resolve) => {
+    const img = new window.Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const scale = Math.min(maxDim / img.width, maxDim / img.height, 1);
+      if (scale === 1) { resolve(file); return; }
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.round(img.width * scale);
+      canvas.height = Math.round(img.height * scale);
+      canvas.getContext('2d')!.drawImage(img, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob(
+        (blob) => resolve(blob ? new File([blob], file.name, { type: 'image/jpeg' }) : file),
+        'image/jpeg',
+        0.85,
+      );
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(file); };
+    img.src = url;
+  });
+}
+
 interface PredictResponse {
   bunch_count: number;
   confidences: number[];
@@ -21,15 +46,16 @@ export default function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleFile = useCallback((selected: File) => {
+  const handleFile = useCallback(async (selected: File) => {
     if (!selected.type.startsWith('image/')) {
       setError('Please select a valid image file.');
       return;
     }
-    setFile(selected);
     setResult(null);
     setError(null);
-    setPreview(URL.createObjectURL(selected));
+    const resized = await resizeImageFile(selected);
+    setFile(resized);
+    setPreview(URL.createObjectURL(resized));
   }, []);
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

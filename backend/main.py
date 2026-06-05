@@ -186,6 +186,13 @@ async def predict(file: UploadFile = File(...)):
     img = Image.open(io.BytesIO(data)).convert("RGB")
     img_np = np.array(img)
 
+    # Cap at 1280px — YOLO internally uses 640px, so anything larger wastes time
+    MAX_DIM = 1280
+    h, w = img_np.shape[:2]
+    scale = min(MAX_DIM / max(h, w), 1.0)
+    if scale < 1.0:
+        img_np = cv2.resize(img_np, (int(w * scale), int(h * scale)), interpolation=cv2.INTER_AREA)
+
     logger.info("Running inference on image size=%s", img_np.shape[:2])
     results = model.predict(img_np, conf=0.4, iou=0.5, max_det=100)
     result = results[0]
@@ -199,7 +206,7 @@ async def predict(file: UploadFile = File(...)):
     pil_out = Image.fromarray(annotated_rgb)
 
     buf = io.BytesIO()
-    pil_out.save(buf, format="JPEG", quality=90)
+    pil_out.save(buf, format="JPEG", quality=75)
     encoded = base64.b64encode(buf.getvalue()).decode()
 
     logger.info("Detected %d bunches", bunch_count)

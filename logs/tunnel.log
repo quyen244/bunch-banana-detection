@@ -48,3 +48,36 @@
 2026-06-05T14:24:18Z INF Tunnel server stopped
 2026-06-05T14:24:18Z ERR icmp router terminated error="context canceled"
 2026-06-05T14:24:18Z INF Metrics server stopped
+2026-06-05T15:18:35Z INF Starting tunnel tunnelID=806d8881-41ab-45f8-aa0c-75ed80c4b2f5
+2026-06-05T15:18:35Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+2026-06-05T15:18:35Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+2026-06-05T15:18:35Z INF Settings: map[cred-file:C:\Users\Admin\.cloudflared\806d8881-41ab-45f8-aa0c-75ed80c4b2f5.json credentials-file:C:\Users\Admin\.cloudflared\806d8881-41ab-45f8-aa0c-75ed80c4b2f5.json]
+2026-06-05T15:18:35Z INF cloudflared will not automatically update on Windows systems.
+2026-06-05T15:18:35Z INF Generated Connector ID: 88675962-0956-4cf7-8975-f080abc7f115
+2026-06-05T15:18:35Z INF Initial protocol quic
+2026-06-05T15:18:35Z INF ICMP proxy will use 10.11.7.38 as source for IPv4
+2026-06-05T15:18:35Z INF ICMP proxy will use fe80::b6cf:4144:ab8:4ff6 in zone Wi-Fi as source for IPv6
+2026-06-05T15:18:35Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+2026-06-05T15:18:35Z INF ICMP proxy will use 10.11.7.38 as source for IPv4
+2026-06-05T15:18:35Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.27
+2026-06-05T15:18:35Z INF ICMP proxy will use fe80::b6cf:4144:ab8:4ff6 in zone Wi-Fi as source for IPv6
+2026-06-05T15:18:35Z INF Starting metrics server on 127.0.0.1:20241/metrics
+2026-06-05T15:18:36Z INF Registered tunnel connection connIndex=0 connection=a2ac7998-839e-461a-a090-96487671673f event=0 ip=198.41.192.27 location=hkg09 protocol=quic
+2026-06-05T15:18:36Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=1 event=0 ip=198.41.200.33
+2026-06-05T15:18:36Z INF Registered tunnel connection connIndex=1 connection=4cb4d1fd-78be-457c-a5ce-baa4a966bb04 event=0 ip=198.41.200.33 location=hkg10 protocol=quic
+2026-06-05T15:18:37Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=2 event=0 ip=198.41.200.43
+2026-06-05T15:18:37Z INF Registered tunnel connection connIndex=2 connection=6fdd3b2f-328f-4335-a6c5-5243d5d96683 event=0 ip=198.41.200.43 location=hkg08 protocol=quic
+2026-06-05T15:18:38Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=3 event=0 ip=198.41.192.167
+2026-06-05T15:18:38Z INF Registered tunnel connection connIndex=3 connection=b8e464c5-fb57-4b61-b722-bd9f9d075641 event=0 ip=198.41.192.167 location=hkg09 protocol=quic
+2026-06-05T15:18:47Z ERR  error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it." connIndex=2 event=1 ingressRule=0 originService=http://localhost:8080
+2026-06-05T15:18:47Z ERR Request failed error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it." connIndex=2 dest=https://rexsantech.com/ event=0 ip=198.41.200.43 type=http
+2026-06-05T15:18:48Z ERR  error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it." connIndex=2 event=1 ingressRule=0 originService=http://localhost:8080
+2026-06-05T15:18:48Z ERR Request failed error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it." connIndex=2 dest=https://rexsantech.com/favicon.ico event=0 ip=198.41.200.43 type=http
+2026-06-05T15:19:26Z ERR  error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it." connIndex=2 event=1 ingressRule=0 originService=http://localhost:8080
+2026-06-05T15:19:26Z ERR Request failed error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it." connIndex=2 dest=https://rexsantech.com/ event=0 ip=198.41.200.43 type=http
+2026-06-05T15:20:52Z ERR  error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it." connIndex=2 event=1 ingressRule=0 originService=http://localhost:8080
+2026-06-05T15:20:52Z ERR Request failed error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it." connIndex=2 dest=https://rexsantech.com/ event=0 ip=198.41.200.43 type=http
+2026-06-05T15:20:53Z ERR  error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it." connIndex=2 event=1 ingressRule=0 originService=http://localhost:8080
+2026-06-05T15:20:53Z ERR Request failed error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it." connIndex=2 dest=https://rexsantech.com/favicon.ico event=0 ip=198.41.200.43 type=http
+2026-06-05T15:25:19Z ERR  error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it." connIndex=2 event=1 ingressRule=0 originService=http://localhost:8080
+2026-06-05T15:25:19Z ERR Request failed error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:8080: connectex: No connection could be made because the target machine actively refused it." connIndex=2 dest=https://rexsantech.com/ event=0 ip=198.41.200.43 type=http
