@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<h1 align="center"><b>CS431 - Artificial Intelligence</b></h1>
+<h1 align="center"><b>CS431 - Deep Learning</b></h1>
 
 # **Banana Bunch Detection**
 
