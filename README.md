@@ -39,11 +39,11 @@ An end-to-end object detection system for automatically identifying and counting
 3. [Tech Stack / Architecture](#tech-stack--architecture)
 4. [Dataset](#dataset)
 5. [Methodology / Approach](#methodology--approach)
-6. [Project Structure](#project-structure)
-7. [Installation & Setup](#installation--setup)
-8. [Usage](#usage)
-9. [Demo](#demo)
-10. [Results / Evaluation](#results--evaluation)
+6. [Results / Evaluation](#results--evaluation)
+7. [Project Structure](#project-structure)
+8. [Installation & Setup](#installation--setup)
+9. [Usage](#usage)
+10. [Demo](#demo)
 11. [Deployment](#deployment)
 12. [References](#references)
 
@@ -206,6 +206,31 @@ For each prediction:
 ```
 
 ---
+## Results / Evaluation
+
+The model is evaluated using **mAP @ IoU 0.5**, the standard metric for single-class detection tasks. The PR-curve workflow is:
+
+1. Run inference across all validation images.
+2. Match predictions to ground-truth boxes using IoU ≥ 0.5.
+3. Sweep the confidence threshold to generate the full Precision–Recall curve.
+4. Compute the area under the curve (Average Precision).
+
+Training was conducted on Kaggle with GPU acceleration for 30 epochs. The final `ultimate_model.pt` (4.5 MB) is a YOLOv12n nano model optimized for CPU inference and edge deployment.
+
+### Quantitative Comparison
+
+**Table 2:** Quantitative comparison across models on the banana bunch test set. **Bold** values indicate the best performance for each metric. ↓ lower-is-better; ↑ higher-is-better.
+
+| Metric | YOLOv12n | **Ours (V2Q2F)** | YOLOv12s | YOLOv12m |
+|---|---|---|---|---|
+| Params (M) ↓ | 2.5 | **2.2** | 9.2 | 20.0 |
+| FLOPs (G) ↓ | 6.5 | **5.6** | 21.2 | 67.7 |
+| Precision (%) ↑ | 91.0 | **94.5** | 93.8 | 93.1 |
+| Recall (%) ↑ | 89.0 | **91.6** | 88.0 | 89.6 |
+| mAP@0.5 (%) ↑ | 92.0 | **96.1** | 95.3 | 95.9 |
+| mAP@0.5:0.95 (%) ↑ | 53.0 | **58.7** | 57.9 | 58.3 |
+
+**Efficiency.** V2Q2F reduces trainable parameters from 2.5M to 2.2M (a 12% reduction) while simultaneously achieving the highest scores across all detection metrics — outperforming both larger models (YOLOv12s at 9.2M params, YOLOv12m at 20.0M params) and the baseline YOLOv12n. This validates the effectiveness of the custom attention-enhanced modules (CoordAtt, ECA, DCPBlock, NVQ) in replacing capacity with inductive bias.
 
 ## Project Structure
 
@@ -338,35 +363,6 @@ curl -X POST http://localhost:8000/predict \
   "annotated_image": "<base64-encoded JPEG>"
 }
 ```
-
----
-
-## Results / Evaluation
-
-The model is evaluated using **mAP @ IoU 0.5**, the standard metric for single-class detection tasks. The PR-curve workflow is:
-
-1. Run inference across all validation images.
-2. Match predictions to ground-truth boxes using IoU ≥ 0.5.
-3. Sweep the confidence threshold to generate the full Precision–Recall curve.
-4. Compute the area under the curve (Average Precision).
-
-Training was conducted on Kaggle with GPU acceleration for 30 epochs. The final `ultimate_model.pt` (4.5 MB) is a YOLOv12n nano model optimized for CPU inference and edge deployment.
-
-### Quantitative Comparison
-
-**Table 2:** Quantitative comparison across models on the banana bunch test set. **Bold** values indicate the best performance for each metric. ↓ lower-is-better; ↑ higher-is-better.
-
-| Metric | YOLOv12n | **Ours (V2Q2F)** | YOLOv12s | YOLOv12m |
-|---|---|---|---|---|
-| Params (M) ↓ | 2.5 | **2.2** | 9.2 | 20.0 |
-| FLOPs (G) ↓ | 6.5 | **5.6** | 21.2 | 67.7 |
-| Precision (%) ↑ | 91.0 | **94.5** | 93.8 | 93.1 |
-| Recall (%) ↑ | 89.0 | **91.6** | 88.0 | 89.6 |
-| mAP@0.5 (%) ↑ | 92.0 | **96.1** | 95.3 | 95.9 |
-| mAP@0.5:0.95 (%) ↑ | 53.0 | **58.7** | 57.9 | 58.3 |
-
-**Efficiency.** V2Q2F reduces trainable parameters from 2.5M to 2.2M (a 12% reduction) while simultaneously achieving the highest scores across all detection metrics — outperforming both larger models (YOLOv12s at 9.2M params, YOLOv12m at 20.0M params) and the baseline YOLOv12n. This validates the effectiveness of the custom attention-enhanced modules (CoordAtt, ECA, DCPBlock, NVQ) in replacing capacity with inductive bias.
-
 ---
 
 ## Demo
