@@ -206,7 +206,7 @@ async def predict(file: UploadFile = File(...)):
     pil_out = Image.fromarray(annotated_rgb)
 
     buf = io.BytesIO()
-    pil_out.save(buf, format="JPEG", quality=75)
+    pil_out.save(buf, format="JPEG", quality=90)
     encoded = base64.b64encode(buf.getvalue()).decode()
 
     logger.info("Detected %d bunches", bunch_count)

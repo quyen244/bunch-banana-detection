@@ -10,3 +10,19 @@ ERROR: Invalid argument/option - '//F'.
 Type "TASKKILL /?" for usage.
 [2026-06-05 22:29:13] Tunnel stopped.
 [2026-06-05 22:29:13] --- ALL SERVICES STOPPED ---
+[2026-06-05 22:55:21] --- STOPPING BANANA DETECTION SERVER ---
+[2026-06-05 22:55:24] Container stopped.
+ERROR: The process "cloudflared.exe" not found.
+[2026-06-05 22:55:25] Tunnel stopped.
+[2026-06-05 22:55:25] --- ALL SERVICES STOPPED ---
+[2026-06-05 22:57:02] --- STOPPING BANANA DETECTION SERVER ---
+[2026-06-05 22:57:03] Container stopped.
+ERROR: Invalid argument/option - '//F'.
+Type "TASKKILL /?" for usage.
+[2026-06-05 22:57:03] Tunnel stopped.
+[2026-06-05 22:57:03] --- ALL SERVICES STOPPED ---
+[2026-06-05 23:00:01] --- STOPPING BANANA DETECTION SERVER ---
+[2026-06-05 23:00:04] Container stopped.
+SUCCESS: The process "cloudflared.exe" with PID 30304 has been terminated.
+[2026-06-05 23:00:04] Tunnel stopped.
+[2026-06-05 23:00:04] --- ALL SERVICES STOPPED ---

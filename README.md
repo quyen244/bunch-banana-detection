@@ -1,3 +1,5 @@
+> **Report:** [placeholder — full technical report will be linked here once published]
+
 <p align="center">
   <a href="https://www.uit.edu.vn/" title="University of Information Technology" style="border: none;">
     <img src="https://i.imgur.com/WmMnSRt.png" alt="University of Information Technology (UIT)">
@@ -40,8 +42,10 @@ An end-to-end object detection system for automatically identifying and counting
 6. [Project Structure](#project-structure)
 7. [Installation & Setup](#installation--setup)
 8. [Usage](#usage)
-9. [Results / Evaluation](#results--evaluation)
-10. [References](#references)
+9. [Demo](#demo)
+10. [Results / Evaluation](#results--evaluation)
+11. [Deployment](#deployment)
+12. [References](#references)
 
 ---
 
@@ -125,12 +129,13 @@ When deployed with Docker + Cloudflare Tunnel the backend is publicly reachable 
 |---|---|
 | Task | Object Detection |
 | Classes | 1 — `banana bunch` |
-| Input resolution | 640 × 640 |
+| Native resolution | ~4000 × 3000 (variable, high-resolution field photos) |
+| Training input size | 640 × 640 (resized during preprocessing) |
 | Annotation format | YOLO (normalized bounding boxes) |
 | Source | Kaggle (referenced as `/kaggle/input/final-model`) |
 | Sample images | 4 real-world field photos in `images/` |
 
-The dataset covers banana bunches photographed in outdoor, natural-lighting conditions representative of harvest scenarios.
+Raw images are captured at high resolution (~4000×3000) reflecting real harvest conditions. During training and inference they are resized to 640×640 — YOLO's standard input resolution — which both standardizes feature scale and significantly reduces memory and compute requirements without meaningful loss of detection accuracy for this task.
 
 ---
 
@@ -346,6 +351,73 @@ The model is evaluated using **mAP @ IoU 0.5**, the standard metric for single-c
 4. Compute the area under the curve (Average Precision).
 
 Training was conducted on Kaggle with GPU acceleration for 30 epochs. The final `ultimate_model.pt` (4.5 MB) is a YOLOv12n nano model optimized for CPU inference and edge deployment.
+
+### Quantitative Comparison
+
+**Table 2:** Quantitative comparison across models on the banana bunch test set. **Bold** values indicate the best performance for each metric. ↓ lower-is-better; ↑ higher-is-better.
+
+| Metric | YOLOv12n | **Ours (V2Q2F)** | YOLOv12s | YOLOv12m |
+|---|---|---|---|---|
+| Params (M) ↓ | 2.5 | **2.2** | 9.2 | 20.0 |
+| FLOPs (G) ↓ | 6.5 | **5.6** | 21.2 | 67.7 |
+| Precision (%) ↑ | 91.0 | **94.5** | 93.8 | 93.1 |
+| Recall (%) ↑ | 89.0 | **91.6** | 88.0 | 89.6 |
+| mAP@0.5 (%) ↑ | 92.0 | **96.1** | 95.3 | 95.9 |
+| mAP@0.5:0.95 (%) ↑ | 53.0 | **58.7** | 57.9 | 58.3 |
+
+**Efficiency.** V2Q2F reduces trainable parameters from 2.5M to 2.2M (a 12% reduction) while simultaneously achieving the highest scores across all detection metrics — outperforming both larger models (YOLOv12s at 9.2M params, YOLOv12m at 20.0M params) and the baseline YOLOv12n. This validates the effectiveness of the custom attention-enhanced modules (CoordAtt, ECA, DCPBlock, NVQ) in replacing capacity with inductive bias.
+
+---
+
+## Demo
+
+> **Note on latency:** Raw images are ~4000×3000 and must be transferred to a remote backend for inference. Two deployment options are available with different latency profiles.
+
+### 3.1 Hugging Face Space (fast)
+
+The model is also hosted on Hugging Face Spaces backed by a foreign (cloud) server. Cold-start aside, inference is noticeably faster than the self-hosted option due to higher-bandwidth infrastructure.
+
+> **[placeholder — .gif of Hugging Face demo will be added here]**
+
+### 3.2 Self-hosted server (via Cloudflare Tunnel)
+
+Requests route through Cloudflare's edge → Cloudflare Tunnel → local server, adding meaningful round-trip latency on top of inference time. This is the expected behavior for a home-lab deployment.
+
+**Interface:**
+
+<p align="center">
+  <img src="artifacts/general_interface.png" width="700" alt="General interface">
+</p>
+
+**Visualization of detection results:**
+
+<p align="center">
+  <img src="artifacts/visualize_result.png" width="700" alt="Visualization result">
+</p>
+
+**Backend JSON response:**
+
+<p align="center">
+  <img src="artifacts/backend_result.png" width="700" alt="Backend result">
+</p>
+
+---
+
+## Deployment
+
+| Component | URL |
+|---|---|
+| Frontend (Vercel) | https://bunch-banana-detection.vercel.app/ |
+| Backend API | https://rexsantech.com |
+| Predict endpoint | `POST https://rexsantech.com/predict` |
+
+The frontend is deployed on Vercel (Next.js, zero-config CDN). The backend runs inside a Docker container on a local machine, exposed publicly via a Cloudflare Tunnel under the `rexsantech.com` domain.
+
+```bash
+# Live predict against the deployed backend
+curl -X POST https://rexsantech.com/predict \
+  -F "file=@your_image.jpg"
+```
 
 ---
 

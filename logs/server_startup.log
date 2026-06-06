@@ -36,3 +36,13 @@
 [2026-06-05 22:30:22] Starting Cloudflare Tunnel...
 [2026-06-05 22:30:28] Tunnel started.
 [2026-06-05 22:30:28] === SERVER STARTUP COMPLETE ===
+[2026-06-05 22:55:30] === STARTING BANANA DETECTION SERVER ===
+[2026-06-05 22:55:31] Starting container...
+[2026-06-05 22:55:32] Container started.
+[2026-06-05 22:57:10] === STARTING BANANA DETECTION SERVER ===
+[2026-06-05 22:57:11] Starting container...
+[2026-06-05 22:57:11] Container started.
+[2026-06-05 22:57:27] API healthy.
+[2026-06-05 22:57:27] Starting Cloudflare Tunnel...
+[2026-06-05 22:57:32] Tunnel started.
+[2026-06-05 22:57:32] === SERVER STARTUP COMPLETE ===
