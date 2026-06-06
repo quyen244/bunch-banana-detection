@@ -1,4 +1,3 @@
-> **Report:** [placeholder — full technical report will be linked here once published]
 
 <p align="center">
   <a href="https://www.uit.edu.vn/" title="University of Information Technology" style="border: none;">
@@ -19,9 +18,10 @@ An end-to-end object detection system for automatically identifying and counting
 - Alternative Gradio demo interface for quick local experimentation
 
 <p align="center">
-  <img src="thumbnail.png" width="600" alt="thumbnail">
+  <img src="banana_bunch_thumbnail.png" width="600" alt="thumbnail">
 </p>
 
+> **Report:** [placeholder — full technical report will be linked here once published]
 ---
 
 ## 👥 Group information
@@ -377,7 +377,15 @@ Training was conducted on Kaggle with GPU acceleration for 30 epochs. The final 
 
 The model is also hosted on Hugging Face Spaces backed by a foreign (cloud) server. Cold-start aside, inference is noticeably faster than the self-hosted option due to higher-bandwidth infrastructure.
 
-> **[placeholder — .gif of Hugging Face demo will be added here]**
+
+
+<p align="center">
+  <video controls width="700">
+  <source src="artifacts/huggingface_demo.mp4" type="video/mp4">
+</video>
+</p>
+
+
 
 ### 3.2 Self-hosted server (via Cloudflare Tunnel)
 
