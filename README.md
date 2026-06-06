@@ -376,9 +376,7 @@ The model is also hosted on Hugging Face Spaces backed by a foreign (cloud) serv
 
 
 <p align="center">
-  <video controls width="700">
-  <source src="artifacts/huggingface_demo.mp4" type="video/mp4">
-</video>
+ <img src = 'artifacts/huggingface_demo.gif' width='700'>
 </p>
 
 
